@@ -8,8 +8,8 @@
 #include <ESP32Servo.h>
 
 // WiFi credentials
-const char* ssid = "kafka";
-const char* password = "kafka1687";
+const char* ssid = "*****"; //place your wifi name
+const char* password = "*****"; //place youe wifi password
 
 WebServer server(80);
 Adafruit_MPU6050 mpu;
