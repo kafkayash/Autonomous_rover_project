@@ -139,7 +139,9 @@ Once the connections are done and the code is uploaded without any issue. you ca
 
 ![Rover dashbaord2](docs/images/rover_camera_dashboard.png)
 
-The possible theory
+You can increase on decrease data transfer rate over the web by changing the following lines of code :
+```C++
+
  
 
 
