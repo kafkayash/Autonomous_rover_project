@@ -2,6 +2,8 @@
 
 This repository contains the design, code, and documentation for my **Autonomous Rover** project.  The rover uses sensors, embedded control, and decision-making algorithms to navigate environments without human intervention.
 
+Developed an intelligent, Wi-Fi-enabled autonomous land rover capable of real-time environmental monitoring and edge-based AI for object detection. Utilized ESP32 and ESP32-CAM for live streaming and sensor integration, implementing obstacle avoidance using ultrasonic and IMU sensor fusion. Designed a responsive web interface for live telemetry, integrating Edge Impulse-trained models for onboard computer vision without cloud dependency. This project was an extension of our gesture-controlled robot work, transforming it into a scalable, autonomous platform for surveillance, inspection, and smart navigation.
+
  
 
 ## Project Overview:
@@ -38,7 +40,10 @@ cd Autonomous_rover_project
 ```
 2. Open the `iot_autonomous_rover.ino` file and select the ESP-32 board type you are using and make sure to set your baud rate to 1120000 on serial monitor after uploading the code to your board. After its uploaded you will see if its connecting to your wifi or not on the serial monitor. It should get connected within a minute ! but make sure your are using a 4G-connection and if using mobile hotspot set it to 2.4GHZ band instead of 5GHZ band in your settings. ESP-32 has a hard time connecting to 5G networks. Obviosuly change the SSID and Password in the code appropriately.
 ```c++
-char SSID=
+// WiFi credentials
+const char* ssid = "*****"; //place your wifi name
+const char* password = "*****"; //place youe wifi password
+```
    
 3. Next upload the ESP-32 cam webserver code onto your board. Although i couldn't put the whole Edge based model onto Github since its very large, you can remove the library and upload it and basic ESP-32 cam AI-Thinker has base level facial detection and recognition, for other objects you need to train it and upload the trained model. I used the Edge Impulse for this, although Tedious you get your imported Model without writing any code for it. The process it quite simple you can Refer to the following Video for reference
 
@@ -128,7 +133,14 @@ That is why I choose to use external 3.7V supply to power the micrcontrolers but
 
  ## Dashbaord:
 
- Once the connections are done and the code is uploaded without any issue
+Once the connections are done and the code is uploaded without any issue. you can just open the dashboard website, by going to chrome and opening the IP-address port printed on the serial monitor( For both the ESP-32 and ESP-32 CAM). You will see the following with Live data being updated on dashboard for every 2 seconds or so. But it wont be surprising to see if it takes even longer, we are using a basic websockett protocol for this and sometimes the latency gets very high especially when running on extended periods. 
+
+![Rover dashboard](docs/images/rover_dashboard.png)
+
+![Rover dashbaord2](docs/images/rover_camera_dashboard.png)
+
+The possible theory
+ 
 
 
 
