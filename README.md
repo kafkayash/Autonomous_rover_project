@@ -67,7 +67,51 @@ const int enB = 32;
  servo_motor.attach(19); //60th line in my original code
 
 ```
+As for the MPU-6050 there is a slight error in the above diagram but generally as per the arduino core definitions/Generic Library definitions most boards use GPIO-21 for **SDA** (Serial Data) and GPIO-22 for **SCL** (Serial Clock). These are standard I2C pins, one transfers data bits (SDA)
+[ESP32 master to Slave MPU6050] and the other Synchronizes both the devices with same clock signal(SCL), Data gets transferred over negative edge of SCL-signal.
 
+So since its a standard protocol I see no reason to change the pin definitions but however if you wish to do that for some reason you can force map the new definitions by using the Wire library, However I advice against doing that until and unless you have a proper reason to do so !
+
+If you still wish to do that you can make the following changes to the code:
+```C++
+#include <Wire.h>
+#include <Adafruit_MPU6050.h>
+
+Adafruit_MPU6050 mpu;
+
+void setup() {
+  Wire.begin(17, 16); // SDA = GPIO 17, SCL = GPIO 16
+  if (!mpu.begin()) {
+    Serial.println("Failed to find MPU6050 chip");
+    while (1) { delay(10); }
+  }
+}
+```
+But remember:
+   - Many dev boards (ESP32 DevKitC) have silkscreened “SDA” and “SCL” labels pointing to 21 and 22.
+   - Keeps your wiring consistent with most documentation.
+   - Avoids conflicts if you’re also using other peripherals on alternate pins.
+
+As for trig and echo pins of ultrasonic sensor its not so strict you can use any GPIO pins on ESP32 as long as they are digital pins.Just check what each pin corresponds to before making any changes and the same goes for Servo motor pin too, it just needs a PWM signal and any GPIO pin on board can generate that.
+
+These are the Circuit connections if you want to follow them as it is (PS: Be careful with motor wire connections to L298N because if you do not understand the transmission logic its easy to messs up Forward and Backward motion)
+| Component          | Connected To (ESP32 pins) | Other pins                              | Power             |
+|--------------------|---------------------------|------------------------------------------|-------------------|
+| **L298N**          | IN1 → GPIO 27 <br> IN2 → GPIO 26 <br> IN3 → GPIO 25 <br> IN4 → GPIO 33 | OUT 1/2 → Left motors <br> OUT 3/4 → Right motors | VCC → 12V <br> GND → GND |
+| **HC-SR04**        | Trig → GPIO 5 <br> Echo → GPIO 18 | NIL                                      | VCC → 5V <br> GND → GND |
+| **MPU6050**        | SDA → GPIO 21 <br> SCL → GPIO 22 | INT, CLK, VIO not connected               | VCC → 5V <br> GND → GND |
+| **DHT11**          | DATA → GPIO 13             | NC (not connected)                       | VCC → 5V <br> GND → GND |
+| **SG-90 servo motor** | Signal → GPIO 19         | NIL                                      | VCC → 5V <br> GND → GND |
+| **Battery (2S 18650)** | ESP32 VIN               | Connected to all +5V rails                | NIL               |
+| **ESP32-node 32s** | NIL                         | Handles Wi-Fi, Webserver, I/O             | Powered by VIN    |
+
+**NOTE:**
+
+I have not used the direct power supply of +5V provided on the L298N H-bridge motor driver. Rememeber that its a begnniers mistake to use them to power your micro controllers. Remeber that L298N is a very outdated motor driver, it still uses the age old darlington pair (BJT based) in its H-bridge configuration. Because of this there is always a lot of noise that is amplified at its terminal outputs and not to mention the worst it draws large currents. Your micro controller already running on WIFI connection here is power hungry and tries to draw ~500mA of current. So this starts becoming a problem here and often it would only work if you added a large enough filter capacitance on the Power rails and still it works in the worst case scenario.
+
+That is why I choose to use external 3.7V supply to power the micrcontrolers but I had to just boost-up the DC-voltage to +5V before proving power( Tried traditional boost converters but for some reason it still failed) This is where I found out that JX-885Y module works the best and it also provided USB port and charging port, so it was the best choice out there.
+
+- Also If you choose to use this project I would definitely suggest to use a different motor driver. And most **IMPORTANTLY** do not forget to use a 2S OR 3S-li ion BMS chip for the Li-ion cells. I say this because if the module is running for extended periods the Li-ion batteries degrade so rapidly because B0-motors so efficent at one thing that is drawing large currents !. once they go below 1.5V its impossible to recover them( practically in dead zone) unless you have specicialized equipment. Having an on Board BMS is always recommended unless you are super rich and can afford to buy New Li-ion batteries after each use.
 
 
 
