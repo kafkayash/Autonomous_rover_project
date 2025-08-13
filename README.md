@@ -141,6 +141,16 @@ Once the connections are done and the code is uploaded without any issue. you ca
 
 You can increase on decrease data transfer rate over the web by changing the following lines of code :
 ```C++
+//In void handle data
+server.send(200, "text/html", page);
+//In void handle root
+ server.send(200, "application/json", data); page += "if (chart.data.labels.length > 20) { chart.data.labels.shift(); chart.data.datasets.forEach(dataset => dataset.data.shift()); }";
+  page += "chart.update();";
+  page += "}); }, 2000);";
+```
+This is how the project works, you can simply Reuse to learn and understand and obviously improve it. The scope for improvement on this very high.
+
+## Possible Future Improvements:
 
  
 
