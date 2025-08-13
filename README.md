@@ -46,7 +46,20 @@ cd Autonomous_rover_project
 ## Circuit Connections:
 ![Rover Overview](docs/images/circuit_connections.png)
 
-These are the connections I have made but you can configure the connections as you wish just make sure to change the pin definitions in the `iot_autonomous_rover.ino` file. 
+These are the connections I have made but you can configure the connections as you wish just make sure to change the pin definitions in the `iot_autonomous_rover.ino` file. Specifically these lines in the code
+```C++
+//Motor pins
+const int LeftMotorForward = 27;
+const int LeftMotorBackward = 26;
+const int RightMotorForward = 25;
+const int RightMotorBackward = 33;
+const int enA = 14;
+const int enB = 32;
+
+// Ultrasonic sensor pins
+#define trig_pin 5
+#define echo_pin 18
+```
 
 
 
