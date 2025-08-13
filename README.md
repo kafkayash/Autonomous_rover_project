@@ -36,8 +36,9 @@ The rover is built with:
 git clone https://github.com/kafkayash/Autonomous_rover_project.git
 cd Autonomous_rover_project
 ```
-2. Open the `iot_autonomous_rover.ino` file and select the ESP-32 board type you are using and make sure to set your baud rate to 1120000 on serial monitor after uploading the code to your board. After its uploaded you will see if its connecting to your wifi or not on the serial monitor. It should get connected within a minute ! but make sure your are using a 4G-connection and if using mobile hotspot set it to 2.4GHZ band instead of 5GHZ band in your settings. ESP-32 has a hard time connecting to 5G networks.
-
+2. Open the `iot_autonomous_rover.ino` file and select the ESP-32 board type you are using and make sure to set your baud rate to 1120000 on serial monitor after uploading the code to your board. After its uploaded you will see if its connecting to your wifi or not on the serial monitor. It should get connected within a minute ! but make sure your are using a 4G-connection and if using mobile hotspot set it to 2.4GHZ band instead of 5GHZ band in your settings. ESP-32 has a hard time connecting to 5G networks. Obviosuly change the SSID and Password in the code appropriately.
+```c++
+char SSID=
    
 3. Next upload the ESP-32 cam webserver code onto your board. Although i couldn't put the whole Edge based model onto Github since its very large, you can remove the library and upload it and basic ESP-32 cam AI-Thinker has base level facial detection and recognition, for other objects you need to train it and upload the trained model. I used the Edge Impulse for this, although Tedious you get your imported Model without writing any code for it. The process it quite simple you can Refer to the following Video for reference
 
@@ -45,7 +46,16 @@ cd Autonomous_rover_project
 
 4. Remember to download the appropriate libraries on arduino before uploaing the code, specifically the following ones. Just type their names in the library manager and you can install them.
    ```C++
-   
+   #include <WiFi.h>
+   #include <WebServer.h>
+   #include <Wire.h>
+   #include <Adafruit_Sensor.h>
+   #include <Adafruit_MPU6050.h>
+   #include <DHT.h>
+   #include <NewPing.h>
+   #include <ESP32Servo.h>
+   ```
+If its not present in the Library manager just download them online and include it as a ZIP file.  
 ## Circuit Connections:
 ![Rover Overview](docs/images/circuit_connections.png)
 
@@ -115,7 +125,10 @@ I have not used the direct power supply of +5V provided on the L298N H-bridge mo
 That is why I choose to use external 3.7V supply to power the micrcontrolers but I had to just boost-up the DC-voltage to +5V before proving power( Tried traditional boost converters but for some reason it still failed) This is where I found out that JX-885Y module works the best and it also provided USB port and charging port, so it was the best choice out there.
 
 - Also If you choose to use this project I would definitely suggest to use a different motor driver. And most **IMPORTANTLY** do not forget to use a 2S OR 3S-li ion BMS chip for the Li-ion cells. I say this because if the module is running for extended periods the Li-ion batteries degrade so rapidly because B0-motors so efficent at one thing that is drawing large currents !. once they go below 1.5V its impossible to recover them( practically in dead zone) unless you have specicialized equipment. Having an on Board BMS is always recommended unless you are super rich and can afford to buy New Li-ion batteries after each use. As for the connections you can find them anywhere online and its super straightforward.( Just Make sure to see the specifications before using one atleast use 2S li ion of 7V, 10A rating anf if using 12v battery connection then 3S-BMS of 11.4V,18A rating).
-  
+
+ ## Dashbaord:
+
+ Once the connections are done and the code is uploaded without any issue
 
 
 
