@@ -43,6 +43,9 @@ cd Autonomous_rover_project
 
     [ESP-32 CAM AI-THINKER EDGE IMPULSE](https://youtu.be/HDRvZ_BYd08?si=7uLiEUAztkoOZQOL)
 
+4. Remember to download the appropriate libraries on arduino before uploaing the code, specifically the following ones. Just type their names in the library manager and you can install them.
+   ```C++
+   
 ## Circuit Connections:
 ![Rover Overview](docs/images/circuit_connections.png)
 
@@ -111,7 +114,8 @@ I have not used the direct power supply of +5V provided on the L298N H-bridge mo
 
 That is why I choose to use external 3.7V supply to power the micrcontrolers but I had to just boost-up the DC-voltage to +5V before proving power( Tried traditional boost converters but for some reason it still failed) This is where I found out that JX-885Y module works the best and it also provided USB port and charging port, so it was the best choice out there.
 
-- Also If you choose to use this project I would definitely suggest to use a different motor driver. And most **IMPORTANTLY** do not forget to use a 2S OR 3S-li ion BMS chip for the Li-ion cells. I say this because if the module is running for extended periods the Li-ion batteries degrade so rapidly because B0-motors so efficent at one thing that is drawing large currents !. once they go below 1.5V its impossible to recover them( practically in dead zone) unless you have specicialized equipment. Having an on Board BMS is always recommended unless you are super rich and can afford to buy New Li-ion batteries after each use.
+- Also If you choose to use this project I would definitely suggest to use a different motor driver. And most **IMPORTANTLY** do not forget to use a 2S OR 3S-li ion BMS chip for the Li-ion cells. I say this because if the module is running for extended periods the Li-ion batteries degrade so rapidly because B0-motors so efficent at one thing that is drawing large currents !. once they go below 1.5V its impossible to recover them( practically in dead zone) unless you have specicialized equipment. Having an on Board BMS is always recommended unless you are super rich and can afford to buy New Li-ion batteries after each use. As for the connections you can find them anywhere online and its super straightforward.( Just Make sure to see the specifications before using one atleast use 2S li ion of 7V, 10A rating anf if using 12v battery connection then 3S-BMS of 11.4V,18A rating).
+  
 
 
 
