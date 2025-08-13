@@ -64,7 +64,8 @@ const int enB = 32;
 #define echo_pin 18
 
 //servo motor pins
-servo_attatch(19);
+ servo_motor.attach(19); //60th line in my original code
+
 ```
 
 
