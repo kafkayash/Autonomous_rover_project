@@ -39,4 +39,15 @@ The rover is built with:
 git clone https://github.com/kafkayash/Autonomous_rover_project.git
 cd Autonomous_rover_project
 ```
-2. Open the 
+2. Open the `iot_autonomous_rover.ino` file and select the ESP-32 board type you are using and make sure to set your baud rate to 1120000 on serial monitor after uploading the code to your board. After its uploaded you will see if its connecting to your wifi or not on serial monitor. Most of the times it gets connected within a minute but make sure your are using a 4G-connection and if using mobile hotspot set it to 2.4GHZ band instead of 5GHZ band in your settings. ESP-32 has a hard time connecting to 5G networks.
+
+   
+3. Next upload the ESP-32 cam webserver code onto your board. Although i couldn't put the whole Edge based model onto Github since its very large, you can remove the library and upload it and basic ESP-32 cam AI-Thinker has base level facial detection and recognition, for other objects you need to train it and upload the trained model. I used the Edge Impulse for this, althjough Tedious you get your imported Model without writing any code for it. The process it quite simple you can Refer to the following Video for reference
+
+    [ESP-32 CAM AI-THINKER EDGE IMPULSE](https://youtu.be/HDRvZ_BYd08?si=7uLiEUAztkoOZQOL)
+
+## Circuit Connections:
+
+
+
+   
