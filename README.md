@@ -48,6 +48,9 @@ cd Autonomous_rover_project
 
 These are the connections I have made but you can configure the connections as you wish just make sure to change the pin definitions in the `iot_autonomous_rover.ino` file. Specifically these lines in the code
 ```C++
+//dht11
+DHT dht(13, DHT11);
+
 //Motor pins
 const int LeftMotorForward = 27;
 const int LeftMotorBackward = 26;
@@ -59,6 +62,9 @@ const int enB = 32;
 // Ultrasonic sensor pins
 #define trig_pin 5
 #define echo_pin 18
+
+//servo motor pins
+servo_attatch(19);
 ```
 
 
